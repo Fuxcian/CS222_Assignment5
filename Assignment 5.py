@@ -1,0 +1,55 @@
+import unittest
+
+def main():
+
+    # Temperature
+    temp = float(input("Enter temperature in Farenheit: "))
+    celsius = farenheit_to_celsius(temp)
+    print(f"Temperature in Celsius: {celsius}")
+
+    # Fibonacci
+    n = int(input("Enter a non-negative integer for Fibonacci: "))
+    fib_number = fibonacci(n)
+    print(f"The {n}th Fibonacci number is: {fib_number}")
+
+# The two functions.
+def farenheit_to_celsius(fahrenheit):
+    if not isinstance(fahrenheit, (int, float)):
+        raise ValueError("Input must be a number")
+    return (fahrenheit - 32) * 5.0 / 9.0
+
+def fibonacci(n):
+    if not isinstance(n, int):
+        raise ValueError("Input must be an integer")
+    if n < 0:
+        raise ValueError("Input must be a non-negative integer")
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        a, b = 0, 1
+        for _ in range(2, n + 1):
+            a, b = b, a + b
+        return b
+    
+# Unit tests for the functions
+class TestFunctions(unittest.TestCase):
+
+    def test_farenheit_to_celsius(self):
+        self.assertAlmostEqual(farenheit_to_celsius(32), 0)
+        self.assertAlmostEqual(farenheit_to_celsius(212), 100)
+        self.assertAlmostEqual(farenheit_to_celsius(98.6), 37)
+
+    def test_fibonacci(self):
+        self.assertEqual(fibonacci(0), 0)
+        self.assertEqual(fibonacci(1), 1)
+        self.assertEqual(fibonacci(2), 1)
+        self.assertEqual(fibonacci(3), 2)
+        self.assertEqual(fibonacci(4), 3)
+        self.assertEqual(fibonacci(5), 5)
+
+# Run functions and tests
+if __name__ == "__main__":
+    main()
+    unittest.main(argv=[''], exit=False)  # Run the tests without exiting the interpreter
